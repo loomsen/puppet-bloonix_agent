@@ -155,12 +155,12 @@ server {
 
 logger {
     file {
-        filename /var/log/bloonix/bloonix-agent.log
-        filelock 0
-        maxlevel info
-        minlevel emerg
-        timeformat %b %d %Y %H:%M:%S
-        message_layout [%T] %L %P %t %m (%C)
+        filename <%= @log_filename %>
+        filelock <%= @log_filelock %>
+        maxlevel <%= @log_maxlevel %>
+        minlevel <%= @log_minlevel %>
+        timeformat <%= @log_timeformat %>
+        message_layout <%= @log_message_layout %>
     }
 }
 

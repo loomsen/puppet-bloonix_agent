@@ -8,6 +8,12 @@ class bloonix_agent::config (
   $simple_plugins      = $bloonix_agent::config_simple_plugins,
   $use_sudo            = $bloonix_agent::config_use_sudo,
   $config_include      = $bloonix_agent::config_include,
+  $log_filename        = $bloonix_agent::config_log_filename,
+  $log_filelock        = $bloonix_agent::config_log_filelock,
+  $log_maxlevel        = $bloonix_agent::config_log_maxlevel,
+  $log_minlevel        = $bloonix_agent::config_log_minlevel,
+  $log_timeformat      = $bloonix_agent::config_log_timeformat,
+  $log_message_layout  = $bloonix_agent::config_log_message_layout,
   # autoregister agent
   $register_enable     = $bloonix_agent::config_register_enable,
   $company_id          = $bloonix_agent::config_register_company_id,

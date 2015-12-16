@@ -13,6 +13,12 @@ class bloonix_agent::params {
   $config_simple_plugins           = '/usr/local/lib/bloonix/simple-plugins,/usr/lib/bloonix/simple-plugins'
   $config_use_sudo                 = 'unset'
   $config_include                  = '/etc/bloonix/agent/conf.d'
+  $config_log_filename             = '/var/log/bloonix/bloonix-agent.log'
+  $config_log_filelock             = '0'
+  $config_log_maxlevel             = 'info'
+  $config_log_minlevel             = 'emerg'
+  $config_log_timeformat           = '%b %d %Y %H:%M:%S'
+  $config_log_message_layout       = '[%T] %L %P %t %m (%C)'
   # Service
   $service_name                    = 'bloonix-agent'
   $service_ensure                  = 'running'

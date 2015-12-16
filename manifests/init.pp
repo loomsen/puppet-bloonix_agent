@@ -53,6 +53,12 @@ class bloonix_agent (
   $config_register_company_authkey = $bloonix_agent::params::config_register_company_authkey,
   $config_register_template_tags   = $bloonix_agent::params::config_register_template_tags,
   $config_register_description     = $bloonix_agent::params::config_register_description,
+  $config_log_filename             = $bloonix_agent::params::config_log_filename,
+  $config_log_filelock             = $bloonix_agent::params::config_log_filelock,
+  $config_log_maxlevel             = $bloonix_agent::params::config_log_maxlevel,
+  $config_log_minlevel             = $bloonix_agent::params::config_log_minlevel,
+  $config_log_timeformat           = $bloonix_agent::params::config_log_timeformat,
+  $config_log_message_layout       = $bloonix_agent::params::config_log_message_layout,
   $service_name                    = $bloonix_agent::params::service_name,
   $service_ensure                  = $bloonix_agent::params::service_ensure,
   $service_enable                  = $bloonix_agent::params::service_enable,
@@ -71,6 +77,11 @@ class bloonix_agent (
   validate_string($config_simple_plugins)
   validate_string($config_use_sudo)
   validate_string($config_include)
+  validate_absolute_path($config_log_filename)
+  validate_string($config_log_maxlevel)
+  validate_string($config_log_minlevel)
+  validate_string($config_log_timeformat)
+  validate_string($config_log_message_layout)
   validate_string($service_name)
   validate_string($service_ensure)
   validate_string($service_enable)
