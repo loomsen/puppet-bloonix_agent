@@ -141,6 +141,13 @@ use_sudo <%= @use_sudo %>
 server {
     host <%= @bloonix_server %>
     port <%= @bloonix_server_port %>
+<% if @server_mode -%>
+    mode <%= @server_mode %>
+<% end -%>
+<% if @config_server_use_ssl -%>
+    ssl_verify_mode <%= @server_ssl_verify_mode %>
+    <%= @server_ssl_ca_param -%> <%= @server_ssl_ca_file %>
+<% end -%>
 }
 
 

@@ -29,5 +29,20 @@ class bloonix_agent::params {
   $config_register_company_authkey = 'checkBLOONIXforTHEkey' 
   $config_register_template_tags   = undef
   $config_register_description     = undef
+
+  case $::osfamily {
+    "RedHat": {
+      $config_server_ssl_ca_param  = 'ssl_ca_file'
+      $config_server_ssl_ca_file   = '/etc/pki/tls/certs/ca-bundle.crt'
+    }
+    /Debian|SuSE/:{
+      $config_server_ssl_ca_param  = 'ssl_ca_path'
+      $config_server_ssl_ca_file   = '/etc/ssl/certs'
+    }
+  }
+  $config_server_mode              = undef
+  $config_server_ssl_verify_mode   = 'peer'
+  $config_server_use_ssl           = false
+
 }
 
