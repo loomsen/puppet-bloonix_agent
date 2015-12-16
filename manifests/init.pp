@@ -36,21 +36,26 @@
 # Copyright 2015 Your name here, unless otherwise noted.
 #
 class bloonix_agent (
-  $package_manage             = $bloonix_agent::params::package_manage,
-  $package_name               = $bloonix_agent::params::package_name,
-  $package_ensure             = $bloonix_agent::params::package_ensure,
-  $config_bloonix_server      = $bloonix_agent::params::config_bloonix_server,
-  $config_bloonix_server_port = $bloonix_agent::params::config_bloonix_server_port,
-  $config_agents              = $bloonix_agent::params::config_agents,
-  $config_user                = $bloonix_agent::params::config_user,
-  $config_group               = $bloonix_agent::params::config_group,
-  $config_plugins             = $bloonix_agent::params::config_plugins,
-  $config_simple_plugins      = $bloonix_agent::params::config_simple_plugins,
-  $config_use_sudo            = $bloonix_agent::params::config_use_sudo,
-  $config_include             = $bloonix_agent::params::config_include,
-  $service_name               = $bloonix_agent::params::service_name,
-  $service_ensure             = $bloonix_agent::params::service_ensure,
-  $service_enable             = $bloonix_agent::params::service_enable,
+  $package_manage                  = $bloonix_agent::params::package_manage,
+  $package_name                    = $bloonix_agent::params::package_name,
+  $package_ensure                  = $bloonix_agent::params::package_ensure,
+  $config_bloonix_server           = $bloonix_agent::params::config_bloonix_server,
+  $config_bloonix_server_port      = $bloonix_agent::params::config_bloonix_server_port,
+  $config_agents                   = $bloonix_agent::params::config_agents,
+  $config_user                     = $bloonix_agent::params::config_user,
+  $config_group                    = $bloonix_agent::params::config_group,
+  $config_plugins                  = $bloonix_agent::params::config_plugins,
+  $config_simple_plugins           = $bloonix_agent::params::config_simple_plugins,
+  $config_use_sudo                 = $bloonix_agent::params::config_use_sudo,
+  $config_include                  = $bloonix_agent::params::config_include,
+  $config_register_enable          = $bloonix_agent::params::config_register_enable,
+  $config_register_company_id      = $bloonix_agent::params::config_register_company_id,
+  $config_register_company_authkey = $bloonix_agent::params::config_register_company_authkey,
+  $config_register_template_tags   = $bloonix_agent::params::config_register_template_tags,
+  $config_register_description     = $bloonix_agent::params::config_register_description,
+  $service_name                    = $bloonix_agent::params::service_name,
+  $service_ensure                  = $bloonix_agent::params::service_ensure,
+  $service_enable                  = $bloonix_agent::params::service_enable,
 
 ) inherits ::bloonix_agent::params {
 
@@ -69,6 +74,15 @@ class bloonix_agent (
   validate_string($service_name)
   validate_string($service_ensure)
   validate_string($service_enable)
+
+  # check for autoregistration
+  if $config_register_enable { 
+    validate_bool($config_register_enable)
+    validate_integer($config_register_company_id)
+    validate_string($config_register_company_authkey)
+    if $config_register_template_tags { validate_string($config_register_template_tags) }
+    if $config_register_description   { validate_string($config_register_description)   }
+  }
 
   if $package_manage {
     case $::operatingsystem { /^(Debian|Ubuntu)$/: {include apt } }

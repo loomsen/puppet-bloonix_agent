@@ -14,16 +14,12 @@ class bloonix_agent::repo {
     gpgkey   => 'https://download.bloonix.de/repos/centos/RPM-GPG-KEY-Bloonix',
   }
 
-
   case $operatingsystem { 
     /^(Debian|Ubuntu)$/: {
-
       $debian_requires = [ 'apt-transport-https', 'ca-certificates', 'curl' ]
-
       package { $debian_requires: 
         ensure => 'present',
       }
-
       apt::source { 'bloonix':
         location => "$repo",
         release  => "$::lsbdistcodename",
@@ -34,8 +30,6 @@ class bloonix_agent::repo {
         },
         require => Package[$debian_requires],
       }
-
     }
   }
-
 }

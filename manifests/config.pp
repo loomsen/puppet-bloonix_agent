@@ -8,6 +8,13 @@ class bloonix_agent::config (
   $simple_plugins      = $bloonix_agent::config_simple_plugins,
   $use_sudo            = $bloonix_agent::config_use_sudo,
   $config_include      = $bloonix_agent::config_include,
+  # autoregister agent
+  $register_enable     = $bloonix_agent::config_register_enable,
+  $company_id          = $bloonix_agent::config_register_company_id,
+  $company_authkey     = $bloonix_agent::config_register_company_authkey,
+  $template_tags       = $bloonix_agent::config_register_template_tags,
+  $description         = $bloonix_agent::config_register_description,
+
 ) {
   File {
     ensure  => 'present',
@@ -18,8 +25,9 @@ class bloonix_agent::config (
     content => template('bloonix_agent/main.conf.erb'),
   }
 
-  file { '/etc/bloonix/agent/register.conf':
-    content => template('bloonix_agent/register.conf.erb'),
+  if $register_enable {
+    file { '/etc/bloonix/agent/register.conf':
+      content => template('bloonix_agent/register.conf.erb'),
+    }
   }
-  
 }
