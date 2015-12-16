@@ -1,12 +1,12 @@
 {
-  "name": "cm-bloonix_agent",
+  "name": "loomsen-bloonix_agent",
   "version": "0.1.0",
-  "author": "cm",
+  "author": "loomsen",
   "summary": "install and configure bloonix agent",
   "license": "Apache 2.0",
-  "source": "",
-  "project_page": null,
-  "issues_url": null,
+  "source": "https://github.com/loomsen/puppet-bloonix_agent",
+  "project_page": "https://github.com/loomsen/puppet-bloonix_agent",
+  "issues_url": "https://github.com/loomsen/puppet-bloonix_agent/issues",
   "dependencies": [
     {"name":"puppetlabs/stdlib","version_requirement":">= 1.0.0"}
     {"name":"puppetlabs/apt","version_requirement":">=1.0.0"}
