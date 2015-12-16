@@ -29,11 +29,11 @@
 #
 # === Authors
 #
-# Author Name <author@domain.com>
+# Norbert Varzariu <loomsen@gmail.com>
 #
 # === Copyright
 #
-# Copyright 2015 Your name here, unless otherwise noted.
+# Copyright 2015 Norbert Varzariu
 #
 class bloonix_agent (
   $package_manage                  = $bloonix_agent::params::package_manage,
