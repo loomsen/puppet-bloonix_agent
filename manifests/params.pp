@@ -4,6 +4,7 @@ class bloonix_agent::params {
   $package_name                    = 'bloonix-agent'
   $package_ensure                  = 'present'
   # CONFIG
+  $config_bloonix_webgui           = 'http://bloonix.flx.bn'
   $config_bloonix_server           = 'bloonix.flx.bn'
   $config_bloonix_server_port      = '5460'
   $config_agents                   = '4'

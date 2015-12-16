@@ -39,6 +39,7 @@ class bloonix_agent (
   $package_manage                  = $bloonix_agent::params::package_manage,
   $package_name                    = $bloonix_agent::params::package_name,
   $package_ensure                  = $bloonix_agent::params::package_ensure,
+  $config_bloonix_webgui           = $bloonix_agent::params::config_bloonix_webgui,
   $config_bloonix_server           = $bloonix_agent::params::config_bloonix_server,
   $config_bloonix_server_port      = $bloonix_agent::params::config_bloonix_server_port,
   $config_server_mode              = $bloonix_agent::params::config_server_mode,
@@ -73,6 +74,7 @@ class bloonix_agent (
   validate_bool($package_manage)
   validate_string($package_name)
   validate_string($package_ensure)
+  validate_string($config_bloonix_webgui)
   validate_string($config_bloonix_server)
   validate_integer($config_bloonix_server_port)
   validate_integer($config_agents)

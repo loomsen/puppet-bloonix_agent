@@ -1,4 +1,5 @@
 class bloonix_agent::config (
+  $bloonix_webgui         = $bloonix_agent::config_bloonix_webgui,
   $bloonix_server         = $bloonix_agent::config_bloonix_server,
   $bloonix_server_port    = $bloonix_agent::config_bloonix_server_port,
   $server_mode            = $bloonix_agent::config_server_mode,
