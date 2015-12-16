@@ -1,0 +1,9 @@
+webgui_url http://<%= @bloonix_server %>
+data {
+    company_id 2
+    company_authkey iiCEJdeTfND1KhPcn1EieWPofda0MLBBEO7Sw9IfmGQqUM6e422rUeYdzN1AoonW
+    hostname <%= @fqdn %>
+    ipaddr <%= @ipaddress %>
+    description automatically added via puppet
+<% if @kernel == 'Linux' -%>    host_template_tags linux <% end %>
+}
