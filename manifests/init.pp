@@ -1,30 +1,24 @@
 # == Class: bloonix_agent
 #
-# Full description of class bloonix_agent here.
+# The main class. Sets up a repo, installs a package, enables and manages 
+# the service, and optionally registers with a bloonix server.
 #
 # === Parameters
 #
-# Document parameters here.
-#
-# [*sample_parameter*]
-#   Explanation of what this parameter affects and what it defaults to.
-#   e.g. "Specify one or more upstream ntp servers as an array."
+# Please refer to README.md for Params
 #
 # === Variables
 #
-# Here you should define a list of variables that this module would require.
+# At the very least you will need to pass bloonix_server for the agent to know whom to talk to
 #
-# [*sample_variable*]
-#   Explanation of how this variable affects the funtion of this class and if
-#   it has a default. e.g. "The parameter enc_ntp_servers must be set by the
-#   External Node Classifier as a comma separated list of hostnames." (Note,
-#   global variables should be avoided in favor of class parameters as
-#   of Puppet 2.6.)
+# [*config_bloonix_server*]
+#   This value will be set in the main.conf file
 #
 # === Examples
 #
-#  class { 'bloonix_agent':
-#    servers => [ 'pool.ntp.org', 'ntp.local.company.com' ],
+#  class { '::bloonix_agent':
+#    config_bloonix_server => 'bloonix.flx.bn',
+#    config_bloonix_webgui => 'http://bloonix.flx.bn',
 #  }
 #
 # === Authors
