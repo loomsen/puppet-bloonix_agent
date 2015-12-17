@@ -1,3 +1,4 @@
+# Default params
 class bloonix_agent::params {
   $package_manage                  = true
   # Install
@@ -23,16 +24,16 @@ class bloonix_agent::params {
   # Service
   $service_name                    = 'bloonix-agent'
   $service_ensure                  = 'running'
-  $service_enable                  = 'true'
+  $service_enable                  = true
   # auto register
   $config_register_enable          = false
   $config_register_company_id      = '666'
-  $config_register_company_authkey = 'checkBLOONIXforTHEkey' 
+  $config_register_company_authkey = 'checkBLOONIXforTHEkey'
   $config_register_template_tags   = undef
   $config_register_description     = undef
 
   case $::osfamily {
-    "RedHat": {
+    'RedHat': {
       $config_server_ssl_ca_param  = 'ssl_ca_file'
       $config_server_ssl_ca_file   = '/etc/pki/tls/certs/ca-bundle.crt'
     }
@@ -40,6 +41,7 @@ class bloonix_agent::params {
       $config_server_ssl_ca_param  = 'ssl_ca_path'
       $config_server_ssl_ca_file   = '/etc/ssl/certs'
     }
+    default: {}
   }
   $config_server_mode              = undef
   $config_server_ssl_verify_mode   = 'peer'

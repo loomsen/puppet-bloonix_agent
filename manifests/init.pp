@@ -88,10 +88,10 @@ class bloonix_agent (
   validate_string($config_log_message_layout)
   validate_string($service_name)
   validate_string($service_ensure)
-  validate_string($service_enable)
+  validate_bool($service_enable)
 
   # check for autoregistration
-  if $config_register_enable { 
+  if $config_register_enable {
     validate_bool($config_register_enable)
     validate_integer($config_register_company_id)
     validate_string($config_register_company_authkey)
@@ -100,7 +100,10 @@ class bloonix_agent (
   }
 
   if $package_manage {
-    case $::operatingsystem { /^(Debian|Ubuntu)$/: {include apt } }
+    case $::operatingsystem {
+      /^(Debian|Ubuntu)$/: {include apt }
+      default: {}
+    }
     class {'::bloonix_agent::repo': } ->
     class {'::bloonix_agent::install': } ->
     class {'::bloonix_agent::config': } ~>
