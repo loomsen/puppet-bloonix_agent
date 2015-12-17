@@ -44,7 +44,7 @@ class bloonix_agent (
   $config_bloonix_server_port      = $bloonix_agent::params::config_bloonix_server_port,
   $config_server_mode              = $bloonix_agent::params::config_server_mode,
   $config_server_use_ssl           = $bloonix_agent::params::config_server_use_ssl,
-  $config_server_ssl_verify_mode   = $bloonix_agent::params::config_server_ssl_verify,
+  $config_server_ssl_verify_mode   = $bloonix_agent::params::config_server_ssl_verify_mode,
   $config_server_ssl_ca_param      = $bloonix_agent::params::config_server_ssl_ca_param,
   $config_server_ssl_ca_file       = $bloonix_agent::params::config_server_ssl_ca_file,
   $config_agents                   = $bloonix_agent::params::config_agents,
@@ -68,22 +68,25 @@ class bloonix_agent (
   $service_name                    = $bloonix_agent::params::service_name,
   $service_ensure                  = $bloonix_agent::params::service_ensure,
   $service_enable                  = $bloonix_agent::params::service_enable,
-
+  $hostname_re                     = $bloonix_agent::params::hostname_re,
+  $url_re                          = $bloonix_agent::params::url_re
 ) inherits ::bloonix_agent::params {
+
 
   validate_bool($package_manage)
   validate_string($package_name)
   validate_string($package_ensure)
-  validate_string($config_bloonix_webgui)
-  validate_string($config_bloonix_server)
+  validate_re($config_bloonix_webgui, $url_re, "This does not look like a valid URL, got ${config_bloonix_webgui} - If you are sure it is valid, please check the url_re regex in params.pp")
+  validate_re($config_bloonix_server, $hostname_re, "This should be a fqdn, or at least a hostname (no protocols), got ${config_bloonix_server}")
   validate_integer($config_bloonix_server_port)
+  validate_bool($config_server_use_ssl)
   validate_integer($config_agents)
   validate_string($config_user)
   validate_string($config_group)
-  validate_string($config_plugins)
-  validate_string($config_simple_plugins)
+  validate_absolute_path($config_plugins)
+  validate_absolute_path($config_simple_plugins)
   validate_string($config_use_sudo)
-  validate_string($config_include)
+  validate_absolute_path($config_include)
   validate_absolute_path($config_log_filename)
   validate_string($config_log_maxlevel)
   validate_string($config_log_minlevel)

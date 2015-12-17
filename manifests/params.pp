@@ -45,5 +45,9 @@ class bloonix_agent::params {
   $config_server_ssl_verify_mode   = 'peer'
   $config_server_use_ssl           = false
 
+
+  # hostname regex
+  $hostname_re                     = '(?=^.{1,253}$)(^(((?!-)[a-zA-Z0-9-]{1,63}(?<!-))|((?!-)[a-zA-Z0-9-]{1,63}(?<!-)\.)+[a-zA-Z]{2,63}))'
+  $url_re                          = '^https?://([a-z0-9]+(-[a-z0-9]+)*\.?)+[a-z]{2,}(/.+)?$'
 }
 

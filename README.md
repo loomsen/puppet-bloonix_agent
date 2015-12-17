@@ -15,65 +15,172 @@
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+The bloonix_agent module installs, configures and manages bloonix-agent
 
 ## Module Description
-
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+The bloonix_agent module installs, configures and manages bloonix-agent 
+and optionally autoregisters with a bloonix server.
 
 ## Setup
 
 ### What bloonix_agent affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+* This module will set up a repository (depending on your osfamily this is either APT or YUM)
+* This module will install the bloonix-agent package on your system
+* This module will manage the bloonix-agent config on your system
+* This module will manage the bloonix-agent service on your system (optional)
 
 ### Setup Requirements **OPTIONAL**
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+On Debian Systems, this module requires the puppetlabs/apt module.
 
-### Beginning with bloonix_agent
 
-The very basic steps needed for a user to get the module up and running.
+### If you just want to get started
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+You need to pass $config_bloonix_server, which should be the fqdn of your
+bloonix-server.
+
+```puppet
+class { '::bloonix_agent':
+  config_bloonix_server => 'bloonix.example.com',
+}
+```
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+### Connecting to bloonix-server via SSL
 
+```puppet
+class { '::bloonix_agent':
+  config_bloonix_server => 'bloonix.example.com',
+  config_server_use_ssl => true,
+}
+```
+### Enable autoregistration for hosts
+See: https://bloonix.org/de/docs/howtos/howto-automated-host-registration.html
+Only available in German, but the screenshots should show you enough to know where
+to get the company key and id from. In order for the autoregistration to work, you
+will need to pass config_bloonix_webgui:
+
+```puppet
+class { '::bloonix_agent':
+  config_bloonix_server           => 'bloonix.example.com',
+  config_bloonix_webgui           => 'http://bloonix.example.com',
+  config_register_enable          => true,
+  config_register_company_id      => '2',
+  config_register_company_authkey => 'theFANCYkeyYOUgotFROMtheGUI',
+  config_register_description     => 'You may get fancy with facter facts or something here',
+}
+```
+
+### Configure the bloonix-agent
+You can configure everything in the main.conf file from here. The configuration options are named
+config_$as_named_in_bloonix, so bloonix' use_sudo translates to config_use_sudo, bloonix' agents translates to 
+config_bloonix_agent and so on. 
+Please see params.pp and the bloonix documentation for a full set of options. Here are some examples.
+
+#### Run 2 Agents and set a custom simple_plugins path
+```puppet
+class { '::bloonix_agent':
+  config_bloonix_server => 'bloonix.example.com',
+  config_agents         => '2',
+  config_simple_plugins => '/usr/local/lib/bloonix/simple-plugins,/usr/lib/bloonix/simple-plugins,/usr/local/bin',
+}
+```
+
+#### Set a different include path and logfile
+```puppet
+class { '::bloonix_agent':
+  config_bloonix_server => 'bloonix.example.com',
+  config_include        => '/usr/local/bloonix/conf.d',
+  config_log_filename   => '/usr/local/log/myfancylogfile.log',
+}
+```
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+### Classes
+
+#### Public Classes
+* bloonix_agent: Main class, includes all other classes.
+
+####Private Classes
+
+* bloonix_agent::repo: Sets up the Repo
+* bloonix_agent::install: Handles the packages.
+* bloonix_agent::config: Handles the configuration file.
+* bloonix_agent::service: Handles the service.
+
+###Parameters
+
+The following parameters are available in the `::bloonix_agent` class:
+
+####`package_manage` 
+On/Off switch. You can use this to include the module in your site.pp and disable the management for individual nodes.
+Or you could go the other way round, and include the module in the main manifest with the toggle off, and enable it for individual nodes.
+
+### Package configuration
+####`package_name`                 
+Name of the package.
+####`package_ensure`
+[The package state.](https://docs.puppetlabs.com/references/latest/type.html#package-attribute-ensure)
+
+### Basic configuration 
+####`config_bloonix_webgui`
+The URL to your web-GUI (defaults to http://bloonix.example.com)
+####`config_bloonix_server`
+The FQDN of your bloonix server (defaults to bloonix.example.com)
+####`config_bloonix_server_port`
+The port on which the bloonix server listens (defaults to 5460)
+####`config_server_use_ssl` 
+Should the agent use SSL to talk to the server? (defaults to false)
+
+### More configuration parameters
+Please consult [the bloonix documentation](https://bloonix.org/de/docs/configuration/bloonix-agent.html) for a discussion of the params in detail.
+####`config_server_mode`
+####`config_server_ssl_verify_mode` 
+####`config_server_ssl_ca_param`
+####`config_server_ssl_ca_file` 
+####`config_agents`
+####`config_user`
+####`config_group`
+####`config_plugins`
+####`config_simple_plugins`
+####`config_use_sudo`
+####`config_include`
+####`config_register_enable`
+####`config_register_company_id`
+####`config_register_company_authkey`
+####`config_register_template_tags`
+####`config_register_description`
+####`config_log_filename`  
+####`config_log_filelock`
+####`config_log_maxlevel`
+####`config_log_minlevel`
+####`config_log_timeformat`
+####`config_log_message_layout`
+
+### Service related configs
+####`service_name`
+The name of the service (defaults to bloonix-agent)
+####`service_ensure`
+State of the service (defaults to running)
+####`service_enable`
+Enable the service? (defaults to true)
+####`hostname_re`
+Regex used to validate the hostname of the bloonix-server
+####`url_re`
+Regex used to validate the URL of the bloonix-webgui (in case your installation uses a fancy naming scheme I haven't covered)
 
 ## Limitations
-
-This is where you list OS compatibility, version compatibility, etc.
+Currently, this module support CentOS, Fedora (with the bloonix CentOS Repo), Ubuntu and Debian.
 
 ## Development
+I have limited access to resources and time, so if you think this module is useful, like it, hate it, want to make it better or
+want it off the face of the planet, feel free to get in touch with me.
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
+## Editors
+Norbert Varzariu (loomsen)
 
-## Release Notes/Contributors/Etc **Optional**
+## Contributors
+Please see the [list of contributors.](https://github.com/loomsen/puppet-bloonix_agent/graphs/contributors)
 
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.

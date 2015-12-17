@@ -4,7 +4,7 @@ class bloonix_agent::config (
   $bloonix_server_port    = $bloonix_agent::config_bloonix_server_port,
   $server_mode            = $bloonix_agent::config_server_mode,
   $server_use_ssl         = $bloonix_agent::config_server_use_ssl,
-  $server_ssl_verify_mode = $bloonix_agent::params::config_server_ssl_verify,
+  $server_ssl_verify_mode = $bloonix_agent::params::config_server_ssl_verify_mode,
   $server_ssl_ca_param    = $bloonix_agent::params::config_server_ssl_ca_param,
   $server_ssl_ca_file     = $bloonix_agent::params::config_server_ssl_ca_file,
   $agents                 = $bloonix_agent::config_agents,
