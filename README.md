@@ -7,11 +7,16 @@
 3. [Setup - The basics of getting started with bloonix_agent](#setup)
     * [What bloonix_agent affects](#what-bloonix_agent-affects)
     * [Setup requirements](#setup-requirements)
-    * [Beginning with bloonix_agent](#beginning-with-bloonix_agent)
+    * [Getting started with bloonix_agent](#getting-started)
 4. [Usage - Configuration options and additional functionality](#usage)
+    * [Connecting to bloonix-server via SSL](#connecting-to-bloonix-server-via-ssl)
+    * [Enable Autoregistration](#enable-autoregistration)
+    * [Configuration options](#configure-the-bloonix-agent)
 5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 5. [Limitations - OS compatibility, etc.](#limitations)
 6. [Development - Guide for contributing to the module](#development)
+7. [Editors](#editors)
+8. [Contributors](#contributors)
 
 ## Overview
 
@@ -30,12 +35,12 @@ and optionally autoregisters with a bloonix server.
 * This module will manage the bloonix-agent config on your system
 * This module will manage the bloonix-agent service on your system (optional)
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements
 
 On Debian Systems, this module requires the puppetlabs/apt module.
 
 
-### If you just want to get started
+### Getting started
 
 You need to pass $config_bloonix_server, which should be the fqdn of your
 bloonix-server.
@@ -56,8 +61,9 @@ class { '::bloonix_agent':
   config_server_use_ssl => true,
 }
 ```
-### Enable autoregistration for hosts
-See: https://bloonix.org/de/docs/howtos/howto-automated-host-registration.html
+### Enable Autoregistration
+[See this Documentation](https://bloonix.org/de/docs/howtos/howto-automated-host-registration.html)
+It will enable you to automatically register hosts with your bloonix-server (useful for automated deployments)
 Only available in German, but the screenshots should show you enough to know where
 to get the company key and id from. In order for the autoregistration to work, you
 will need to pass config_bloonix_webgui:
