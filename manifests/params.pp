@@ -8,7 +8,7 @@ class bloonix_agent::params {
   $config_bloonix_webgui           = 'http://bloonix.flx.bn'
   $config_bloonix_server           = 'bloonix.flx.bn'
   $config_bloonix_server_port      = '5460'
-  $config_agents                   = '4'
+  $config_agents                   = '6'
   $config_user                     = 'bloonix'
   $config_group                    = 'bloonix'
   $config_plugins                  = '/usr/lib/bloonix/plugins'
