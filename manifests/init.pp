@@ -16,7 +16,7 @@
 #
 # === Examples
 #
-#  class { '::bloonix_agent':
+#  class { 'bloonix_agent':
 #    config_bloonix_server => 'bloonix.flx.bn',
 #    config_bloonix_webgui => 'http://bloonix.flx.bn',
 #  }
@@ -64,7 +64,7 @@ class bloonix_agent (
   $service_enable                  = $bloonix_agent::params::service_enable,
   $hostname_re                     = $bloonix_agent::params::hostname_re,
   $url_re                          = $bloonix_agent::params::url_re
-) inherits ::bloonix_agent::params {
+) inherits bloonix_agent::params {
 
 
   validate_bool($package_manage)
@@ -104,14 +104,14 @@ class bloonix_agent (
       /^(Debian|Ubuntu)$/: {include apt }
       default: {}
     }
-    class {'::bloonix_agent::repo': } ->
-    class {'::bloonix_agent::install': } ->
-    class {'::bloonix_agent::config': } ~>
-    class {'::bloonix_agent::service': }
+    class {'bloonix_agent::repo': } ->
+    class {'bloonix_agent::install': } ->
+    class {'bloonix_agent::config': } ~>
+    class {'bloonix_agent::service': }
 
-    contain '::bloonix_agent::repo'
-    contain '::bloonix_agent::install'
-    contain '::bloonix_agent::config'
-    contain '::bloonix_agent::service'
+    contain 'bloonix_agent::repo'
+    contain 'bloonix_agent::install'
+    contain 'bloonix_agent::config'
+    contain 'bloonix_agent::service'
   }
 }

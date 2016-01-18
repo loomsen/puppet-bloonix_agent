@@ -32,7 +32,7 @@ class bloonix_agent::params {
   $config_register_template_tags   = undef
   $config_register_description     = undef
 
-  case $::osfamily {
+  case $osfamily {
     'RedHat': {
       $config_server_ssl_ca_param  = 'ssl_ca_file'
       $config_server_ssl_ca_file   = '/etc/pki/tls/certs/ca-bundle.crt'
