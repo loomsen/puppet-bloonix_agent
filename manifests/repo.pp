@@ -5,6 +5,7 @@ class bloonix_agent::repo {
     'Fedora' => 'https://download.bloonix.de/repos/centos/7/$basearch',
     'Debian' => 'https://download.bloonix.de/repos/debian/',
     'Ubuntu' => 'https://download.bloonix.de/repos/ubuntu/',
+    default  => undef,
   }
 
   yumrepo { 'bloonix':
