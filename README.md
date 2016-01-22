@@ -75,7 +75,7 @@ class { '::bloonix_agent':
   config_register_enable          => true,
   config_register_company_id      => '2',
   config_register_company_authkey => 'theFANCYkeyYOUgotFROMtheGUI',
-  config_register_description     => 'You may get fancy with facter facts or something here',
+  config_register_description     => 'Maybe something with facter facts here',
 }
 ```
 
@@ -99,7 +99,7 @@ class { '::bloonix_agent':
 class { '::bloonix_agent':
   config_bloonix_server => 'bloonix.example.com',
   config_include        => '/usr/local/bloonix/conf.d',
-  config_log_filename   => '/usr/local/log/myfancylogfile.log',
+  config_log_filename   => '/usr/local/log/mylogfile.log',
 }
 ```
 ## Reference
@@ -175,7 +175,7 @@ Enable the service? (defaults to true)
 ####`hostname_re`
 Regex used to validate the hostname of the bloonix-server
 ####`url_re`
-Regex used to validate the URL of the bloonix-webgui (in case your installation uses a fancy naming scheme I haven't covered)
+Regex used to validate the URL of the bloonix-webgui (in case your installation uses a naming scheme I haven't covered)
 
 ## Limitations
 Currently, this module support CentOS, Fedora (with the bloonix CentOS Repo), Ubuntu and Debian.
