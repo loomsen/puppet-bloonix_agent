@@ -1,6 +1,6 @@
 {
   "name": "loomsen-bloonix_agent",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "author": "loomsen",
   "summary": "install and configure bloonix agent",
   "license": "Apache-2.0",

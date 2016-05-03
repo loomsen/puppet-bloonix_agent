@@ -8,13 +8,6 @@ class bloonix_agent::repo {
     default  => undef,
   }
 
-  yumrepo { 'bloonix':
-    enabled  => 1,
-    descr    => 'bloonix repo',
-    baseurl  => $repo,
-    gpgcheck => 1,
-    gpgkey   => 'https://download.bloonix.de/repos/centos/RPM-GPG-KEY-Bloonix',
-  }
 
   case $::operatingsystem {
     /^(Debian|Ubuntu)$/: {
@@ -27,10 +20,19 @@ class bloonix_agent::repo {
         release  => $::lsbdistcodename,
         repos    => 'main',
         key      => {
-          id     => 'E0179FA04807A9155ECB96243802BAF4AC22D69E',
+          id     => '31A86A255B0E516B0C49AE661CD8BB07F120EC73',
           source => 'https://download.bloonix.de/repos/debian/bloonix.gpg',
         },
         require  => Package[$debian_requires],
+      }
+    }
+    /^(RedHat|CentOS|Fedora)$/: {
+      yumrepo { 'bloonix':
+        enabled  => 1,
+        descr    => 'bloonix repo',
+        baseurl  => $repo,
+        gpgcheck => 1,
+        gpgkey   => 'https://download.bloonix.de/repos/centos/RPM-GPG-KEY-Bloonix',
       }
     }
     default: {}
