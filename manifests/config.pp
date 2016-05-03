@@ -36,8 +36,9 @@ class bloonix_agent::config (
   file { '/etc/bloonix/agent/main.conf':
     content => template('bloonix_agent/main.conf.erb'),
   }
-
-  if $register_enable {
+  notify { "authkey is: $bloonix_agent::config_register_authkey": }
+  notify { "register_enable is: $bloonix_agent::config_register_enable": }
+  if $bloonix_agent::config_register_enable {
     file { '/etc/bloonix/agent/register.conf':
       content => template('bloonix_agent/register.conf.erb'),
     }
